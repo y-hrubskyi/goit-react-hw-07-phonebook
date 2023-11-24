@@ -1,8 +1,8 @@
 import { Toaster } from 'react-hot-toast';
 
-import { ContactForm } from 'components/ContactForm';
-import { Filter } from 'components/Filter';
-import { ContactList } from 'components/ContactList';
+import { ContactForm } from 'components/ContactForm/ContactForm';
+import { Filter } from 'components/Filter/Filter';
+import { ContactList } from 'components/ContactList/ContactList';
 
 import { GlobalStyle } from 'components/GlobalStyle';
 import { AppWrapper, PageTitle, Title } from 'components/App.styled';

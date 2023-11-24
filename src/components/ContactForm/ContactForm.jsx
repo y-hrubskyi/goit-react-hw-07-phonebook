@@ -4,7 +4,8 @@ import * as Yup from 'yup';
 import { nanoid } from 'nanoid';
 import toast from 'react-hot-toast';
 
-import { addContact, getContacts } from 'redux/contactsSlice';
+import { selectContacts } from 'redux/selectors';
+import { addContact } from 'redux/operations';
 import { isInContacts } from 'helpers/isInContacts';
 
 import { Form, Label, Field, Button, ErrorMessage } from './ContactForm.styled';
@@ -16,7 +17,7 @@ const contactsSchema = Yup.object().shape({
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
 
   const addContactFoo = contact => {
     const isExist = isInContacts(contacts, contact.name);
