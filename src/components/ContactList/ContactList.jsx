@@ -16,8 +16,9 @@ export const ContactList = () => {
   }, [dispatch]);
 
   const deleteContactFoo = contactId => {
-    dispatch(deleteContact(contactId));
-    toast.success('Contact successfully deleted');
+    dispatch(deleteContact(contactId)).then(() =>
+      toast.success('Contact successfully deleted')
+    );
   };
 
   const contactList = contacts.map(contact => (

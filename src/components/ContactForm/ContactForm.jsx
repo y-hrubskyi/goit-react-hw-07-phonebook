@@ -28,8 +28,9 @@ export const ContactForm = () => {
     }
 
     const newContact = { ...contact, id: nanoid() };
-    dispatch(addContact(newContact));
-    toast.success('Contact successfully added');
+    dispatch(addContact(newContact)).then(() =>
+      toast.success('Contact successfully added')
+    );
   };
 
   const handleSubmit = (values, actions) => {
