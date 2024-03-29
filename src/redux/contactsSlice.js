@@ -5,12 +5,13 @@ const handlePending = state => {
   state.isLoading = true;
   state.error = null;
 };
+
 const handleRejected = (state, action) => {
   state.isLoading = false;
   state.error = action.payload;
 };
 
-export const contactsSlice = createSlice({
+const contactsSlice = createSlice({
   name: 'contacts',
   initialState: {
     items: [],
@@ -28,7 +29,6 @@ export const contactsSlice = createSlice({
         state.items.push(action.payload);
       })
       .addCase(deleteContact.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.isLoading = false;
         state.items = state.items.filter(item => item.id !== action.payload.id);
       })
@@ -50,3 +50,5 @@ export const contactsSlice = createSlice({
       );
   },
 });
+
+export const contactsReducer = contactsSlice.reducer;
