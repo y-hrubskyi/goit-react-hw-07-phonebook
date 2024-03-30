@@ -12,9 +12,13 @@ export const ContactItem = ({ contact }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const deleteContactFoo = contactId => {
-    dispatch(deleteContact(contactId));
-    toast.success('Contact successfully deleted');
+  const deleteContactFoo = async contactId => {
+    try {
+      await dispatch(deleteContact(contactId)).unwrap();
+      toast.success('Contact successfully deleted');
+    } catch (error) {
+      toast.error(`Oops... ${error.message}`);
+    }
   };
 
   const toggleModal = () => {
