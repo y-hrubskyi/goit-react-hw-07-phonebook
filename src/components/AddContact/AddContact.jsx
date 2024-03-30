@@ -17,26 +17,23 @@ export const AddContact = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
 
-  const addContactFoo = newContact => {
-    const isExist = isInContacts(contacts, newContact.name);
-
-    if (isExist) {
-      toast.error(`${newContact.name} is already in contacts.`);
-      return isExist;
-    }
-
-    dispatch(addContact(newContact));
-    toast.success('Contact successfully added');
-  };
-
   const toggleModal = () => {
     setModalIsOpen(prevState => !prevState);
   };
 
-  const handleSubmit = values => {
-    const isAlreadyAdded = addContactFoo(values);
-    if (!isAlreadyAdded) {
+  const addContactFoo = async newContact => {
+    try {
+      const isExist = isInContacts(contacts, newContact.name);
+
+      if (isExist) {
+        throw new Error(`${newContact.name} is already in contacts.`);
+      }
+
+      await dispatch(addContact(newContact)).unwrap();
+      toast.success('Contact successfully added');
       toggleModal();
+    } catch (error) {
+      toast.error(error.message || `Oops... ${error.message}`);
     }
   };
 
@@ -49,7 +46,7 @@ export const AddContact = () => {
         <ContactForm
           contact={{ name: '', number: '' }}
           action="Add contact"
-          onSubmit={handleSubmit}
+          onSubmit={addContactFoo}
         />
       </ModalBase>
     </Wrapper>
