@@ -1,24 +1,28 @@
+import { useSelector } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
 
-import { ContactForm } from 'components/ContactForm/ContactForm';
-import { Filter } from 'components/Filter/Filter';
-import { ContactList } from 'components/ContactList/ContactList';
+import { selectContacts } from 'redux/selectors';
+
+import { Filter } from './Filter/Filter';
+import { ContactList } from './ContactList/ContactList';
+import { AddContact } from './AddContact/AddContact';
 
 import { GlobalStyle } from 'styles/GlobalStyle';
-import { AppWrapper, PageTitle, Title } from 'components/App.styled';
+import { Layout, PageTitle, Title } from './App.styled';
 
 export const App = () => {
+  const contacts = useSelector(selectContacts);
+
   return (
-    <AppWrapper>
+    <Layout>
       <GlobalStyle />
       <Toaster toastOptions={{ duration: 1500 }} />
 
       <PageTitle>Phonebook</PageTitle>
-      <ContactForm />
-
       <Title>Contacts</Title>
-      <Filter />
+      {contacts.length > 0 && <Filter />}
       <ContactList />
-    </AppWrapper>
+      <AddContact />
+    </Layout>
   );
 };
