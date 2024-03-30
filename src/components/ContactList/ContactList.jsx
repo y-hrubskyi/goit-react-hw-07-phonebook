@@ -1,38 +1,33 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import toast from 'react-hot-toast';
 
-import { selectFilteredContacts } from 'redux/selectors';
-import { deleteContact, fetchContacts } from 'redux/operations';
+import { selectFilter, selectFilteredContacts } from 'redux/selectors';
+import { fetchContacts } from 'redux/operations';
 
-import { ContactsList, ContactData, Button } from './ContactList.styled';
+import { ContactItem } from 'components/ContactItem/ContactItem';
+import { ContactsList } from './ContactList.styled';
 
 export const ContactList = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectFilteredContacts);
+  const filter = useSelector(selectFilter);
 
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
-  const deleteContactFoo = contactId => {
-    dispatch(deleteContact(contactId)).then(() =>
-      toast.success('Contact successfully deleted')
-    );
-  };
+  let filterInfo = '';
+  const results = contacts.length;
+  if (!results && !filter) filterInfo = <p>Your contact list is empty</p>;
+  if (!results && filter) filterInfo = <p>Not Finded</p>;
 
-  return (
+  return contacts.length ? (
     <ContactsList>
       {contacts.map(contact => (
-        <li key={contact.id}>
-          <ContactData>
-            {contact.name}: {contact.number}
-          </ContactData>
-          <Button type="button" onClick={() => deleteContactFoo(contact.id)}>
-            Delete
-          </Button>
-        </li>
+        <ContactItem key={contact.id} contact={contact} />
       ))}
     </ContactsList>
+  ) : (
+    filterInfo
   );
 };
