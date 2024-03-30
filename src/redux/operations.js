@@ -25,6 +25,18 @@ export const addContact = createAsyncThunk(
   }
 );
 
+export const updateContact = createAsyncThunk(
+  'contacts/updateContact',
+  async ({ id, name, number }, thunkAPI) => {
+    try {
+      const { data } = await axios.put(`/contacts/${id}`, { name, number });
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async (contactId, thunkAPI) => {
