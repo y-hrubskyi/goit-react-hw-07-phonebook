@@ -41,6 +41,8 @@ export const Button = styled.button`
 
   border-radius: ${p => p.theme.radii.md};
   background-color: transparent;
+  border: 1px solid ${p => p.theme.colors.accent};
+  color: ${p => p.theme.colors.accent};
 
   transition: ${p => p.theme.transition('color')},
     ${p => p.theme.transition('background-color')};

@@ -23,12 +23,11 @@ export const ContactList = () => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
-  let filterInfo = '';
+  let filterResult = '';
   const results = contacts.length;
   if (!results && !filter && !error && !isLoading)
-    filterInfo = <p>Your contact list is empty</p>;
-  if (!results && filter && !error && !isLoading)
-    filterInfo = <p>Not Finded</p>;
+    filterResult = 'Your contact list is empty';
+  if (!results && filter && !error && !isLoading) filterResult = 'Not Finded';
 
   return (
     <>
@@ -41,7 +40,7 @@ export const ContactList = () => {
           ))}
         </ContactsList>
       ) : (
-        filterInfo
+        <p>{filterResult}</p>
       )}
     </>
   );

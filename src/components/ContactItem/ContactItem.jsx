@@ -40,11 +40,13 @@ export const ContactItem = ({ contact }) => {
           </Button>
         </div>
       </ContactWrapper>
-      <EditContact
-        contact={contact}
-        isOpen={modalIsOpen}
-        onClose={toggleModal}
-      />
+      {modalIsOpen && (
+        <EditContact
+          contact={contact}
+          isOpen={modalIsOpen}
+          onClose={toggleModal}
+        />
+      )}
     </li>
   );
 };
