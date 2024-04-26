@@ -32,10 +32,14 @@ export const ContactItem = ({ contact }) => {
           {contact.name}: {contact.number}
         </ContactData>
         <div>
-          <Button type="button" onClick={toggleModal}>
+          <Button type="button" onClick={toggleModal} aria-label="edit contact">
             <MdEdit size={22} />
           </Button>{' '}
-          <Button type="button" onClick={() => deleteContactFoo(contact.id)}>
+          <Button
+            type="button"
+            onClick={() => deleteContactFoo(contact.id)}
+            aria-label="delete contact"
+          >
             <MdDelete size={22} />
           </Button>
         </div>
